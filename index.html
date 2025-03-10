@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffebcc;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff6600;
+        }
+        .pertanyaan {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .pertanyaan-container {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+        #foto, #motivasi {
+            display: none;
+        }
+        .foto-lucu img {
+            width: 200px;
+            height: auto;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .pesan-motivasi {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            background: #ffe4b5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎉 Selamat Ulang Tahun! 🎂</h1>
+    
+    <div id="pertanyaan1" class="pertanyaan-container">
+        <p class="pertanyaan">1. Udah besar atau masih bocil?</p>
+        <button disabled>Udah besar</button>
+        <button onclick="nextQuestion('pertanyaan1', 'pertanyaan2')">Masih bocil</button>
+    </div>
+
+    <div id="pertanyaan2" class="pertanyaan-container hidden">
+        <p class="pertanyaan">2. Pinter atau sok pinter?</p>
+        <button disabled>Pinter</button>
+        <button onclick="nextQuestion('pertanyaan2', 'pertanyaan3')">Sok pinter</button>
+    </div>
+
+    <div id="pertanyaan3" class="pertanyaan-container hidden">
+        <p class="pertanyaan">3. Sayang aku atau sayang makanan?</p>
+        <button disabled>Sayang aku</button>
+        <button onclick="nextQuestion('pertanyaan3', 'pertanyaan4')">Sayang makanan</button>
+    </div>
+
+    <div id="pertanyaan4" class="pertanyaan-container hidden">
+        <p class="pertanyaan">4. Mau kado atau enggak?</p>
+        <button disabled>Mau</button>
+        <button onclick="nextQuestion('pertanyaan4', 'foto')">Enggak (yaudah, beneran enggak dapet!)</button>
+    </div>
+
+    <div id="foto" class="foto-lucu hidden">
+        <h2>Hahaha, ketauan masih bocil! 🤣</h2>
+        <img src="https://i.pinimg.com/originals/76/cd/12/76cd12b35794fcd5c26a9a7c86c678fb.jpg" alt="Meme lucu">
+        <img src="https://i.pinimg.com/originals/0a/82/8a/0a828a37487b8dc7f7c5a2f8361b26a0.jpg" alt="Meme lucu">
+        <img src="https://i.pinimg.com/originals/6a/7f/3a/6a7f3a1b6c00251eb931fb71ecb885b1.jpg" alt="Meme lucu">
+    </div>
+
+    <div id="motivasi" class="pesan-motivasi hidden">
+        <p>🌟 Hidup terus berjalan, dan kamu harus tetap kuat! Jika suatu hari aku sudah tidak ada di sisimu, jangan pernah berhenti tersenyum dan mengejar impianmu. Kamu hebat, dan aku selalu bangga padamu! ❤️</p>
+    </div>
+
+    <script>
+        function nextQuestion(currentId, nextId) {
+            document.getElementById(currentId).classList.add('hidden');
+            document.getElementById(nextId).classList.remove('hidden');
+
+            // Kalau sudah sampai bagian foto, munculkan pesan motivasi setelah 2 detik
+            if (nextId === 'foto') {
+                setTimeout(() => {
+                    document.getElementById("motivasi").classList.remove('hidden');
+                }, 2000);
+            }
+        }
+    </script>
+
+</body>
+  </html>

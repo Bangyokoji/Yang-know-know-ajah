@@ -3,78 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun!</title>
+    <title>🎉 Selamat Ulang Tahun! 🎂</title>
     <style>
         body {
             text-align: center;
-            font-family: Arial, sans-serif;
-            background-color: #ffebcc;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
             padding: 20px;
+            transition: all 0.5s ease-in-out;
         }
+
         h1 {
-            color: #ff6600;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
+
+        .pertanyaan-container {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .pertanyaan {
-            font-size: 20px;
+            font-size: 22px;
             margin: 20px 0;
+            font-weight: bold;
         }
+
         button {
             font-size: 18px;
-            padding: 10px;
-            margin: 5px;
+            padding: 12px 20px;
+            margin: 10px;
             cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+            position: relative;
         }
-        .pertanyaan-container {
-            display: block;
+
+        .pindah {
+            position: absolute;
         }
-        .hidden {
-            display: none;
+
+        button:not(.pindah) {
+            background-color: #ff6b6b;
+            color: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
         }
+
+        button:not(.pindah):hover {
+            background-color: #ff4757;
+            transform: scale(1.05);
+        }
+
         #foto, #motivasi {
             display: none;
         }
+
         .foto-lucu img {
             width: 200px;
             height: auto;
             margin: 10px;
             border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
         }
+
         .pesan-motivasi {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
+            background: rgba(255, 255, 255, 0.8);
             color: #333;
-            background: #ffe4b5;
             padding: 15px;
             border-radius: 10px;
             margin-top: 20px;
+            display: inline-block;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
 
     <h1>🎉 Selamat Ulang Tahun! 🎂</h1>
-    
-    <div id="pertanyaan1" class="pertanyaan-container">
+
+    <div id="pertanyaan1" class="pertanyaan-container active">
         <p class="pertanyaan">1. Udah besar atau masih bocil?</p>
-        <button disabled>Udah besar</button>
+        <button id="pindahButton" class="pindah" onmouseover="pindahTombol('pindahButton')">Udah besar</button>
         <button onclick="nextQuestion('pertanyaan1', 'pertanyaan2')">Masih bocil</button>
     </div>
 
     <div id="pertanyaan2" class="pertanyaan-container hidden">
         <p class="pertanyaan">2. Pinter atau sok pinter?</p>
-        <button disabled>Pinter</button>
+        <button id="pindahButton2" class="pindah" onmouseover="pindahTombol('pindahButton2')">Pinter</button>
         <button onclick="nextQuestion('pertanyaan2', 'pertanyaan3')">Sok pinter</button>
     </div>
 
     <div id="pertanyaan3" class="pertanyaan-container hidden">
         <p class="pertanyaan">3. Sayang aku atau sayang makanan?</p>
-        <button disabled>Sayang aku</button>
+        <button id="pindahButton3" class="pindah" onmouseover="pindahTombol('pindahButton3')">Sayang aku</button>
         <button onclick="nextQuestion('pertanyaan3', 'pertanyaan4')">Sayang makanan</button>
     </div>
 
     <div id="pertanyaan4" class="pertanyaan-container hidden">
         <p class="pertanyaan">4. Mau kado atau enggak?</p>
-        <button disabled>Mau</button>
+        <button id="pindahButton4" class="pindah" onmouseover="pindahTombol('pindahButton4')">Mau</button>
         <button onclick="nextQuestion('pertanyaan4', 'foto')">Enggak (yaudah, beneran enggak dapet!)</button>
     </div>
 
@@ -91,17 +133,38 @@
 
     <script>
         function nextQuestion(currentId, nextId) {
-            document.getElementById(currentId).classList.add('hidden');
-            document.getElementById(nextId).classList.remove('hidden');
+            let currentEl = document.getElementById(currentId);
+            let nextEl = document.getElementById(nextId);
 
-            // Kalau sudah sampai bagian foto, munculkan pesan motivasi setelah 2 detik
+            currentEl.classList.remove('active');
+            setTimeout(() => {
+                currentEl.classList.add('hidden');
+                nextEl.classList.remove('hidden');
+                setTimeout(() => {
+                    nextEl.classList.add('active');
+                }, 50);
+            }, 300);
+
             if (nextId === 'foto') {
                 setTimeout(() => {
                     document.getElementById("motivasi").classList.remove('hidden');
                 }, 2000);
             }
         }
+
+        function pindahTombol(id) {
+            let button = document.getElementById(id);
+            let maxWidth = window.innerWidth - 150; // Hindari keluar layar
+            let maxHeight = window.innerHeight - 100;
+
+            let newX = Math.random() * maxWidth;
+            let newY = Math.random() * maxHeight;
+
+            button.style.position = "absolute";
+            button.style.left = newX + "px";
+            button.style.top = newY + "px";
+        }
     </script>
 
 </body>
-  </html>
+</html>
